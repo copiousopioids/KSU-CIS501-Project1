@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_0
+namespace Project_1
 {
     public class Card
     {
@@ -12,6 +12,8 @@ namespace Project_0
         /// Constant int values enumerating the non-numeric cards.
         /// </summary>
         public const int ACE = 1, JACK = 11, QUEEN = 12, KING = 13;
+        static readonly string[] convertValToString = { "", "A", "2", "3", "4", "5", "6", "7", "8",
+                                                        "9", "0", "J", "Q", "K" };
 
         /// <summary>
         /// Enumerating the suits.
@@ -32,7 +34,7 @@ namespace Project_0
         /// <summary>
         /// Indicates whether the card is face up or down.
         /// </summary>
-        private bool _FaceUp;
+        private bool _faceUp;
 
         /// <summary>
         /// Default card constructor. Default card is Ace of Spades.
@@ -41,6 +43,7 @@ namespace Project_0
         {
             _suit = Suit.Spades;
             _value = ACE;
+            _faceUp = true;
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace Project_0
             }
             set
             {
-                if ((int)value > 0 && (int)value < 4)
+                if ((int)value >= 0 && (int)value <= 4)
                 {
                     _suit = value;
                 }
@@ -68,7 +71,7 @@ namespace Project_0
         /// <summary>
         /// Public getter/setter for this card's value parameter.
         /// </summary>
-        public int CardValue
+        public int Value
         {
             get
             {
@@ -76,7 +79,7 @@ namespace Project_0
             }
             set
             {
-                if (value > 0 && value < 13)
+                if (value >= 0 && value <= 13)
                 {
                     _value = value;
                 }
@@ -84,6 +87,24 @@ namespace Project_0
                 {
                     throw new IndexOutOfRangeException("Invalid card value.");
                 }
+            }
+        }
+
+        /// <summary>
+        /// The boolean parameter setting the orientation of the card.
+        /// _faceUp = true:  ToString() = "suit_value"
+        /// _faceUp = fale:  ToString() = "XX"
+        /// </summary>
+        public bool FaceUp
+        {
+            get
+            {
+                return _faceUp;
+            }
+
+            set
+            {
+                _faceUp = value;
             }
         }
 
@@ -102,8 +123,29 @@ namespace Project_0
             {
                 throw new IndexOutOfRangeException("The value is not valid.");
             }
-            _value = thisVal;
-            _suit = thisSuit;
+            this.Value = thisVal;
+            this.CardSuit = thisSuit;
+            this.FaceUp = true;
+        }
+
+        /// <summary>
+        /// Constructs the card given valid values, and throws an exception otherwise.
+        /// </summary>
+        /// <param name="thisVal">This card's value.</param>
+        /// <param name="thisSuit">This card's suit.</param>
+        public Card(int thisVal, Suit thisSuit, bool faceUp)
+        {
+            if ((int)thisSuit < 0 || (int)thisSuit > 4)
+            {
+                throw new IndexOutOfRangeException("The suit is not valid.");
+            }
+            if (thisSuit != Suit.OldMaid && (thisVal < 0 || thisVal > 13))
+            {
+                throw new IndexOutOfRangeException("The value is not valid.");
+            }
+            this.Value = thisVal;
+            this.CardSuit = thisSuit;
+            this.FaceUp = faceUp;
         }
 
         /// <summary>
@@ -134,42 +176,44 @@ namespace Project_0
         /// <returns>Returns the numerical value of the card</returns>
         public string ValueToString()
         {
-            if (_suit == Suit.OldMaid)
-            {
-                return "";
-            }
-            else
-            {
-                switch (_value)
-                {
-                    case 1:
-                        return "A";
-                    case 2:
-                        return "2";
-                    case 3:
-                        return "3";
-                    case 4:
-                        return "4";
-                    case 5:
-                        return "5";
-                    case 6:
-                        return "6";
-                    case 7:
-                        return "7";
-                    case 8:
-                        return "8";
-                    case 9:
-                        return "9";
-                    case 10:
-                        return "0";
-                    case 11:
-                        return "J";
-                    case 12:
-                        return "Q";
-                    default:
-                        return "K";
-                }
-            }
+            return convertValToString[Value];
+
+            //if (_suit == Suit.OldMaid)
+            //{
+            //    return "";
+            //}
+            //else
+            //{
+            //    switch (_value)
+            //    {
+            //        case 1:
+            //            return "A";
+            //        case 2:
+            //            return "2";
+            //        case 3:
+            //            return "3";
+            //        case 4:
+            //            return "4";
+            //        case 5:
+            //            return "5";
+            //        case 6:
+            //            return "6";
+            //        case 7:
+            //            return "7";
+            //        case 8:
+            //            return "8";
+            //        case 9:
+            //            return "9";
+            //        case 10:
+            //            return "0";
+            //        case 11:
+            //            return "J";
+            //        case 12:
+            //            return "Q";
+            //        default:
+            //            return "K";
+            //    }
+            //}
         }
 
         /// <summary>

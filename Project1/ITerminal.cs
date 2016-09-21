@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_0
+namespace Project_1
 {
     class ITerminal
     {
         /// <summary>
         /// Constructs a new UserInterface object.
-        /// </summary>
+        /// </summary>  
         public ITerminal()
         {
             

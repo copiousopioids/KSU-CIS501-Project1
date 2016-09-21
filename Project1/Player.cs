@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_0
+namespace Project_1
 {
     class Player
     {
@@ -93,7 +93,7 @@ namespace Project_0
                     {
                         if (_hand[i] != _hand[j] && !markedForDiscard[i] && !markedForDiscard[j])
                         {
-                            if (_hand[i].CardValue == _hand[j].CardValue)
+                            if (_hand[i].Value == _hand[j].Value)
                             {
                                 markedForDiscard[i] = true;
                                 markedForDiscard[j] = true;
@@ -124,7 +124,7 @@ namespace Project_0
             bool containedCard = false;
             for (int i = _hand.Count - 1; i >= 0; i--)
             {
-                if (c.CardValue == _hand[i].CardValue)
+                if (c.Value == _hand[i].Value)
                 {
                     _hand.RemoveAt(i);
                     containedCard = true;
@@ -152,5 +152,18 @@ namespace Project_0
             _hand.RemoveAt(index);
             return toReturn;
         }
+    }
+
+    class HumanPlayer : Player
+    {
+        private /*override*/ void Deal(Card card)
+        {
+           
+        }
+    }
+
+    class ComputerPlayer : Player
+    {
+
     }
 }
