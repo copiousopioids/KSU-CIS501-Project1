@@ -16,7 +16,8 @@ namespace Project_0
         /// <summary>
         /// Enumerating the suits.
         /// </summary>
-        public enum Suit { SPADES, HEARTS, DIAMONDS, CLUBS, OLDMAID };
+        public enum Suit { Spades, Hearts, Diamonds, Clubs, OldMaid };
+        static readonly string[] convertSuitToString = { "S", "H", "D", "C", "OM" };
 
         /// <summary>
         /// This card's suit.
@@ -29,11 +30,16 @@ namespace Project_0
         private int _value;
 
         /// <summary>
+        /// Indicates whether the card is face up or down.
+        /// </summary>
+        private bool _FaceUp;
+
+        /// <summary>
         /// Default card constructor. Default card is Ace of Spades.
         /// </summary>
         public Card()
         {
-            _suit = Suit.SPADES;
+            _suit = Suit.Spades;
             _value = ACE;
         }
 
@@ -92,7 +98,7 @@ namespace Project_0
             {
                 throw new IndexOutOfRangeException("The suit is not valid.");
             }
-            if (thisSuit != Suit.OLDMAID && (thisVal < 0 || thisVal > 13))
+            if (thisSuit != Suit.OldMaid && (thisVal < 0 || thisVal > 13))
             {
                 throw new IndexOutOfRangeException("The value is not valid.");
             }
@@ -104,30 +110,31 @@ namespace Project_0
         /// Gets the suit as a string value.
         /// </summary>
         /// <returns>Returns the initials of the card's string.</returns>
-        public string suitToString()
+        public string SuitToString()
         {
-            switch(_suit)
-            {
-                case Suit.SPADES:
-                    return "S";
-                case Suit.HEARTS:
-                    return "H";
-                case Suit.DIAMONDS:
-                    return "D";
-                case Suit.CLUBS:
-                    return "C";
-                default:
-                    return "OM";
-            }
+            return convertSuitToString[(int)CardSuit];
+            //switch (_suit)
+            //{
+            //    case Suit.Spades:
+            //        return "S";
+            //    case Suit.Hearts:
+            //        return "H";
+            //    case Suit.Diamonds:
+            //        return "D";
+            //    case Suit.Clubs:
+            //        return "C";
+            //    default:
+            //        return "OM";
+            //}
         }
 
         /// <summary>
         /// Returns the value as a string.
         /// </summary>
         /// <returns>Returns the numerical value of the card</returns>
-        public string valueToString()
+        public string ValueToString()
         {
-            if (_suit == Suit.OLDMAID)
+            if (_suit == Suit.OldMaid)
             {
                 return "";
             }
@@ -171,7 +178,10 @@ namespace Project_0
         /// <returns>Returns a two-character representation of the card (e.g. "SA" for Ace of Spades).</returns>
         public override string ToString()
         {
-            return suitToString() + valueToString();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(SuitToString());
+            sb.Append(ValueToString());
+            return sb.ToString();
         }
     }
 } // end class Card

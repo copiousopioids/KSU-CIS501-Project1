@@ -28,20 +28,6 @@ namespace Project_0
         /// </summary>
         public bool _isUser;
 
-        /// <summary>
-        /// Gets and sets the current hand of cards for the given player.
-        /// </summary>
-        //public Card[] Hand
-        //{
-        //    get
-        //    {
-        //        return _hand;
-        //    }
-        //    set
-        //    {
-        //        _hand = value;
-        //    }
-        //}
 
         /// <summary>
         /// Constructs a new player.
@@ -69,12 +55,20 @@ namespace Project_0
         /// <returns>returns the string representing the cards in the given player's hand.</returns>
         public string HandToString()
         {
-            List<string> stringHandList = new List<string>();
-            for (int i = 0; i < _hand.Count; i++)
+            StringBuilder sb = new StringBuilder();
+            foreach (Card c in _hand)
             {
-                stringHandList.Add(_hand[i].ToString());
+                sb.Append(c.ToString() + " ");
             }
-            return string.Join(" ", stringHandList.ToArray());
+            string toReturn = sb.ToString();
+            sb.Clear();
+            return toReturn;
+            //List<string> stringHandList = new List<string>();
+            //for (int i = 0; i < _hand.Count; i++)
+            //{
+            //    stringHandList.Add(_hand[i].ToString());
+            //}
+            //return string.Join(" ", stringHandList.ToArray());
         }
 
         /// <summary>

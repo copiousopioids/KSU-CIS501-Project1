@@ -33,7 +33,7 @@ namespace Project_0
                     count++;
                 }
             }
-            _deck[52] = new Card(0, Card.Suit.OLDMAID);
+            _deck[52] = new Card(0, Card.Suit.OldMaid);
             _cardsUsed = 0;
             Shuffle();
         }

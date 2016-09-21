@@ -16,7 +16,7 @@ namespace Project_0
         /// <summary>
         /// The game UI object.
         /// </summary>
-        public UserInterface _gameUI = new UserInterface();
+        public ITerminal _gameUI = new ITerminal();
 
         /// <summary>
         /// The game deck.
