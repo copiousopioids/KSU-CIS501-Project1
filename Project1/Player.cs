@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Project_1
 {
-    class Player
+    abstract class Player
     {
         /// <summary>
         /// The name of the player.
@@ -19,6 +20,12 @@ namespace Project_1
         public List<Card> _hand;
 
         /// <summary>
+        /// Change _handArray to _hand
+        /// Change NewAddCard to AddCard
+        /// </summary>
+        public Card[] _handArray;
+
+        /// <summary>
         /// Determines whether the given player has used all their cards.
         /// </summary>
         public bool _isFinished = false;
@@ -28,6 +35,11 @@ namespace Project_1
         /// </summary>
         public bool _isUser;
 
+        /// <summary>
+        /// The index of the top card in the array.
+        /// </summary>
+        public int _topIndex;
+
 
         /// <summary>
         /// Constructs a new player.
@@ -36,6 +48,16 @@ namespace Project_1
         {
             _hand = new List<Card>();
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="numPlayers"></param>
+        //public Player(int numPlayers)
+        //{
+        //    _handArray = new Card[(53 / numPlayers + 2)];
+        //    _topIndex = _handArray.Length - 1;
+        //}
 
         /// <summary>
         /// Constructs a new player with a name.
@@ -113,7 +135,7 @@ namespace Project_1
         }
 
         /// <summary>
-        /// Checks if the given card has a pair in the hand.
+        /// OLD Checks if the given card has a pair in the hand.
         /// Returns true if their hand is empty.
         /// Otherwise, returns false.
         /// </summary>
@@ -142,6 +164,52 @@ namespace Project_1
         }
 
         /// <summary>
+        /// Checks for duplicates before adding the given card into the player's hand.
+        /// </summary>
+        /// <param name="card">the card to add.</param>
+        public void NewAddCard(Card card)
+        {
+            bool isDuplicate = false;
+            for (int i = _handArray.Length - 1; i >= 0; i--)
+            {
+                if (_handArray[i].Value == card.Value)
+                {
+                    Card iCard = _handArray[i];
+                    _handArray[i] = _handArray[_topIndex--];
+                    //Add cards back into Deck? How?
+                    Deck.ReturnCard(iCard);
+                    Deck.ReturnCard(card);
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate)
+            {
+                _handArray[++_topIndex] = card;
+            }
+        }
+
+        /// <summary>
+        /// Picks a card from this player.
+        /// </summary>
+        /// <param name="i">The index of the card to pick.</param>
+        /// <returns>Returns the Card object at the index specified.</returns>
+        public Card PickCardAt(int i)
+        {
+            if (i > 0 && i <= _topIndex)
+            {
+                Card toReturn = _handArray[i];
+                _handArray[i] = _handArray[_topIndex--];
+                return toReturn;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("index is not within the range of the hand");
+            }
+
+        }
+
+        /// <summary>
         /// Removes a card at the given index.
         /// </summary>
         /// <param name="index">The index of the card to remove.</param>
@@ -152,18 +220,54 @@ namespace Project_1
             _hand.RemoveAt(index);
             return toReturn;
         }
+
+        public abstract void Deal(Card card);
     }
 
+    /// <summary>
+    /// The HumanPlayer subclass.
+    /// </summary>
     class HumanPlayer : Player
     {
-        private /*override*/ void Deal(Card card)
+        public HumanPlayer(string name, int numPlayers)
         {
-           
+            _isUser = true;
+            _handArray = new Card[(53 / numPlayers + 2)];
+            _topIndex = _handArray.Length - 1;
+            _name = name;
+        }
+
+        public override void Deal(Card card)
+        {
+            card.FaceUp = true;
+            _hand[++_topIndex] = card;
+
+            throw new NotImplementedException();
         }
     }
 
+    /// <summary>
+    /// The Computer player subclass.
+    /// </summary>
     class ComputerPlayer : Player
     {
+        public ComputerPlayer(string name, int numPlayers)
+        {
+            _isUser = false;
+            _handArray = new Card[(53 / numPlayers + 2)];
+            _topIndex = _handArray.Length - 1;
+            _name = name;
+        }
 
+        public override void Deal(Card card)
+        {
+#if DEBUG
+            card.FaceUp = true;
+#else
+            card.FaceUp = false;
+#endif
+            _hand[++_topIndex] = card;
+            throw new NotImplementedException();
+        }
     }
 }

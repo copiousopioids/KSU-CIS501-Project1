@@ -37,11 +37,11 @@ namespace Project_1
         {
             int playerCount = _gameUI.GetNumAI() + 1;
 
-            _playerList.Add(new Player("User", true));
+            _playerList.Add(new HumanPlayer("User", playerCount));
 
             for (int i = 1; i < playerCount; i++)
             {
-                _playerList.Add(new Player("Player" + i, false));
+                _playerList.Add(new ComputerPlayer("Player" + i, playerCount));
             }
             while (_deck.CardsLeft() > 0)
             {

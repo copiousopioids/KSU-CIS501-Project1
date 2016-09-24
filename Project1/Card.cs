@@ -12,14 +12,14 @@ namespace Project_1
         /// Constant int values enumerating the non-numeric cards.
         /// </summary>
         public const int ACE = 1, JACK = 11, QUEEN = 12, KING = 13;
-        static readonly string[] convertValToString = { "", "A", "2", "3", "4", "5", "6", "7", "8",
+        static readonly string[] convertValToString = { "O", "A", "2", "3", "4", "5", "6", "7", "8",
                                                         "9", "0", "J", "Q", "K" };
 
         /// <summary>
         /// Enumerating the suits.
         /// </summary>
         public enum Suit { Spades, Hearts, Diamonds, Clubs, OldMaid };
-        static readonly string[] convertSuitToString = { "S", "H", "D", "C", "OM" };
+        static readonly string[] convertSuitToString = { "S", "H", "D", "C", "M" };
 
         /// <summary>
         /// This card's suit.
@@ -223,8 +223,13 @@ namespace Project_1
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(SuitToString());
-            sb.Append(ValueToString());
+            if (_faceUp == true)
+            {
+                sb.Append(SuitToString());
+                sb.Append(ValueToString());
+            }
+            else
+                sb.Append("XX");
             return sb.ToString();
         }
     }
