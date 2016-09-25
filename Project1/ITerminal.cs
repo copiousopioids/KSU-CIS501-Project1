@@ -20,7 +20,7 @@ namespace Project_1
         /// Writes the string to console.
         /// </summary>
         /// <param name="s">The string to display.</param>
-        void Display(string s)
+        public void Display(string s)
         {
             Console.Write(s);
         }
@@ -29,7 +29,7 @@ namespace Project_1
         /// Writes the string to console and inserts a line break.
         /// </summary>
         /// <param name="s">the string to display.</param>
-        void DisplayLine(string s)
+        public void DisplayLine(string s)
         {
             Console.WriteLine(s);
         }
@@ -71,11 +71,11 @@ namespace Project_1
         /// Displays all the player's hands.
         /// </summary>
         /// <param name="game"></param>
-        public void DisplayHands(Game game)
+        public void DisplayHands(OldMaid game)
         {
-            foreach (Player p in game._playerList)
+            foreach (Player p in game._currentPlayers)
             {
-                Console.WriteLine(p._name + "\t: " + p.HandToString());
+                Console.WriteLine(p.Name + "\t: " + p.HandToString());
             }
             
             //List<string> handList = new List<string>();
@@ -103,7 +103,7 @@ namespace Project_1
             while (!valid)
             {
                 Console.Write("Do you want to play again? (Y/N)");
-                char answer = GetChar("Do you want to play again? (Y/N)", "YN");
+                char answer = GetChar("Do you want to play again? (Y/N)", "YNyn");
                 if (answer == 'Y')
                 {
                     valid = true;

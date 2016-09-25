@@ -12,7 +12,7 @@ namespace Project_1
         /// <summary>
         /// The name of the player.
         /// </summary>
-        public string _name = "";
+        private string _name = "";
 
         /// <summary>
         /// An array of Card objects forming the Player's hand.
@@ -23,7 +23,12 @@ namespace Project_1
         /// Change _handArray to _hand
         /// Change NewAddCard to AddCard
         /// </summary>
-        public Card[] _handArray;
+        private Card[] _handArray = new Card[13];
+
+        /// <summary>
+        /// A static temporary array of 
+        /// </summary>
+        public static Card[] _tempCards;
 
         /// <summary>
         /// Determines whether the given player has used all their cards.
@@ -33,12 +38,58 @@ namespace Project_1
         /// <summary>
         /// Determines whether the player is the user.
         /// </summary>
-        public bool _isUser;
+        private bool _isUser;
 
         /// <summary>
         /// The index of the top card in the array.
         /// </summary>
         public int _topIndex;
+
+        /// <summary>
+        /// Public property for hand array.
+        /// </summary>
+        public Card[] Hand
+        {
+            get
+            {
+                return _handArray;
+            }
+            
+            set
+            {
+                _handArray = value;
+            }
+        }
+
+        /// <summary>
+        /// Public property for Name.
+        /// </summary>
+        public String Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        /// <summary>
+        /// Public property for _isUser.
+        /// </summary>
+        public bool IsUser
+        {
+            get
+            {
+                return _isUser;
+            }
+            set
+            {
+                _isUser = value;
+            }
+        }
 
 
         /// <summary>
@@ -115,7 +166,7 @@ namespace Project_1
                     {
                         if (_hand[i] != _hand[j] && !markedForDiscard[i] && !markedForDiscard[j])
                         {
-                            if (_hand[i].Value == _hand[j].Value)
+                            if (_hand[i].Rank == _hand[j].Rank)
                             {
                                 markedForDiscard[i] = true;
                                 markedForDiscard[j] = true;
@@ -135,6 +186,51 @@ namespace Project_1
         }
 
         /// <summary>
+        /// Discards all pairs in the player's hand.
+        /// </summary>
+        public void DiscardAllPairs()
+        {
+            for (int c = 0; c < _handArray.Length; c++)
+            {
+                int j = (int)_handArray[c].Rank;
+                if (_tempCards[j] == null)
+                {
+                    _tempCards[j] = _handArray[c];
+                }
+                else
+                {
+                    Deck.ReturnCard(_tempCards[j]);
+                    _tempCards[j] = null;
+                    Deck.ReturnCard(_handArray[c]);
+                    _handArray[c] = null;
+                }
+            }
+
+            int count = 0;
+            for (int i = 0; i < _tempCards.Length; i++)
+            {
+                if (_tempCards[i] != null)
+                {
+                    count++;
+                }
+            }
+
+            _handArray = new Card[count];
+
+            // Better way to do this so I don't have to use two for loops?
+            // Could possibly double efficiency.
+            count = 0;
+            for (int i = 0; i < _tempCards.Length; i++)
+            {
+                if (_tempCards[i] != null)
+                {
+                    _handArray[count++] = _tempCards[i];
+                    _tempCards[i] = null;
+                }
+            }
+        }
+
+        /// <summary>
         /// OLD Checks if the given card has a pair in the hand.
         /// Returns true if their hand is empty.
         /// Otherwise, returns false.
@@ -146,7 +242,7 @@ namespace Project_1
             bool containedCard = false;
             for (int i = _hand.Count - 1; i >= 0; i--)
             {
-                if (c.Value == _hand[i].Value)
+                if (c.Rank == _hand[i].Rank)
                 {
                     _hand.RemoveAt(i);
                     containedCard = true;
@@ -172,7 +268,7 @@ namespace Project_1
             bool isDuplicate = false;
             for (int i = _handArray.Length - 1; i >= 0; i--)
             {
-                if (_handArray[i].Value == card.Value)
+                if (_handArray[i].Rank == card.Rank)
                 {
                     Card iCard = _handArray[i];
                     _handArray[i] = _handArray[_topIndex--];
@@ -221,6 +317,21 @@ namespace Project_1
             return toReturn;
         }
 
+        /// <summary>
+        /// Returns player's hands back to the deck array.
+        /// </summary>
+        public void ReturnHandToDeck()
+        {
+            for (int i = 0; i < _handArray.Length; i++)
+            {
+                if (_handArray[i] != null)
+                {
+                    Deck.ReturnCard(_handArray[i]);
+                    _handArray[i] = null;
+                }
+            }
+        }
+
         public abstract void Deal(Card card);
     }
 
@@ -231,10 +342,10 @@ namespace Project_1
     {
         public HumanPlayer(string name, int numPlayers)
         {
-            _isUser = true;
-            _handArray = new Card[(53 / numPlayers + 2)];
-            _topIndex = _handArray.Length - 1;
-            _name = name;
+            IsUser = true;
+            Hand = new Card[(53 / numPlayers + 2)];
+            _topIndex = Hand.Length - 1;
+            Name = name;
         }
 
         public override void Deal(Card card)
@@ -242,7 +353,6 @@ namespace Project_1
             card.FaceUp = true;
             _hand[++_topIndex] = card;
 
-            throw new NotImplementedException();
         }
     }
 
@@ -253,10 +363,10 @@ namespace Project_1
     {
         public ComputerPlayer(string name, int numPlayers)
         {
-            _isUser = false;
-            _handArray = new Card[(53 / numPlayers + 2)];
-            _topIndex = _handArray.Length - 1;
-            _name = name;
+            IsUser = false;
+            Hand = new Card[(53 / numPlayers + 2)];
+            _topIndex = Hand.Length - 1;
+            Name = name;
         }
 
         public override void Deal(Card card)
@@ -267,7 +377,6 @@ namespace Project_1
             card.FaceUp = false;
 #endif
             _hand[++_topIndex] = card;
-            throw new NotImplementedException();
         }
     }
 }

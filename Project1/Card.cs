@@ -71,7 +71,7 @@ namespace Project_1
         /// <summary>
         /// Public getter/setter for this card's value parameter.
         /// </summary>
-        public int Value
+        public int Rank
         {
             get
             {
@@ -123,7 +123,7 @@ namespace Project_1
             {
                 throw new IndexOutOfRangeException("The value is not valid.");
             }
-            this.Value = thisVal;
+            this.Rank = thisVal;
             this.CardSuit = thisSuit;
             this.FaceUp = true;
         }
@@ -143,7 +143,7 @@ namespace Project_1
             {
                 throw new IndexOutOfRangeException("The value is not valid.");
             }
-            this.Value = thisVal;
+            this.Rank = thisVal;
             this.CardSuit = thisSuit;
             this.FaceUp = faceUp;
         }
@@ -176,7 +176,7 @@ namespace Project_1
         /// <returns>Returns the numerical value of the card</returns>
         public string ValueToString()
         {
-            return convertValToString[Value];
+            return convertValToString[Rank];
 
             //if (_suit == Suit.OldMaid)
             //{

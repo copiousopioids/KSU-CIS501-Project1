@@ -30,19 +30,11 @@ namespace Project_1
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            bool playAgain = true;
-
-            while (playAgain == true)
-            {
-                Game _game = new Game();
-
-                _game.PlayGame();
-
-                playAgain = _game._gameUI.PlayAgain();
-            }
-
+            OldMaid _game = new OldMaid();
+            _game.PlayGame();
         }
       
     }
