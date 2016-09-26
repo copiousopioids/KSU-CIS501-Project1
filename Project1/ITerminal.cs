@@ -26,6 +26,14 @@ namespace Project_1
         }
 
         /// <summary>
+        /// Writes one line to the console.
+        /// </summary>
+        public void DisplayLine()
+        {
+            Console.WriteLine();
+        }
+
+        /// <summary>
         /// Writes the string to console and inserts a line break.
         /// </summary>
         /// <param name="s">the string to display.</param>
@@ -129,7 +137,7 @@ namespace Project_1
         /// <param name="prompt">The string prompt to display to the user.</param>
         /// <param name="chars">a string of the chars that give a valid answer.</param>
         /// <returns></returns>
-        char GetChar(string prompt, string chars)
+        public char GetChar(string prompt, string chars)
         {
             bool valid = false;
             char[] charArray = chars.ToUpper().ToCharArray();
@@ -160,7 +168,7 @@ namespace Project_1
         /// <param name="prompt">The prompt to display.</param>
         /// <param name="length">The desired length of the string answer.</param>
         /// <returns>Returns the user's input if the size matches the length passed in.</returns>
-        string GetString(string prompt, int length)
+        public string GetString(string prompt, int length)
         {
             bool valid = false;
             while (!valid)
@@ -189,7 +197,7 @@ namespace Project_1
         /// <param name="min">the minimum int value allowed.</param>
         /// <param name="max">the maximum int value allowed.</param>
         /// <returns>Returns the value selected by user.</returns>
-        int GetInt(string prompt, int min, int max)
+        public int GetInt(string prompt, int min, int max)
         {
             bool isValid = false;
             while (!isValid)
@@ -198,7 +206,7 @@ namespace Project_1
                 {
                     Console.Write(prompt + "(" + min + " - " + max + "): ");
                     int num = Convert.ToInt32(Console.ReadLine());
-                    if (num <= min || num >= max)
+                    if (num < min || num > max)
                     {
                         Console.Write("Invalid input.");
                         isValid = false;
@@ -219,6 +227,25 @@ namespace Project_1
             return 2;
         }
 
+
+        /// <summary>
+        /// Wait for user. Uses default message.
+        /// </summary>
+        public void WaitForUser()
+        {
+            Console.Write("Press <Enter> to Continue... ");
+            Console.Read();
+        }
+
+        /// <summary>
+        /// Wait for user.
+        /// </summary>
+        /// <param name="prompt">String to display.</param>
+        public void WaitForUser(string prompt)
+        {
+            Console.Write(prompt);
+            Console.Read();
+        }
 
     }
 }

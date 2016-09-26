@@ -17,18 +17,18 @@ namespace Project_1
         /// <summary>
         /// An array of Card objects forming the Player's hand.
         /// </summary>
-        public List<Card> _hand;
+        //public List<Card> _hand;
 
         /// <summary>
         /// Change _handArray to _hand
         /// Change NewAddCard to AddCard
         /// </summary>
-        private Card[] _handArray = new Card[13];
+        private Card[] _handArray;
 
         /// <summary>
         /// A static temporary array of 
         /// </summary>
-        public static Card[] _tempCards;
+        public static Card[] _tempCards = new Card[14];
 
         /// <summary>
         /// Determines whether the given player has used all their cards.
@@ -97,7 +97,7 @@ namespace Project_1
         /// </summary>
         public Player()
         {
-            _hand = new List<Card>();
+        
         }
 
         ///// <summary>
@@ -115,12 +115,12 @@ namespace Project_1
         /// </summary>
         /// <param name="name">The name of the player.</param>
         /// <param name="isUser">Determines if this player is the user.</param>
-        public Player(string name, bool isUser)
-        {
-            _name = name;
-            _hand = new List<Card>();
-            _isUser = isUser;
-        }
+        //public Player(string name, bool isUser)
+        //{
+        //    _name = name;
+        //    _hand = new List<Card>();
+        //    _isUser = isUser;
+        //}
 
         /// <summary>
         /// Converts the Card object list into a string list, and joins that into one string for output.
@@ -129,9 +129,10 @@ namespace Project_1
         public string HandToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (Card c in _hand)
+            foreach (Card c in _handArray)
             {
-                sb.Append(c.ToString() + " ");
+                if (c != null)
+                    sb.Append(c.ToString() + " ");
             }
             string toReturn = sb.ToString();
             sb.Clear();
@@ -149,41 +150,41 @@ namespace Project_1
         /// </summary>
         public void Shuffle()
         {
-            new Random().Shuffle(_hand);
+            Randomizer.KnuthShuffle(_handArray, 0, _topIndex);
         }
 
         /// <summary>
-        /// Discards all pairs in a player's hand. Designed for use at the beginning of the program.
+        /// OLD Discards all pairs in a player's hand. Designed for use at the beginning of the program.
         /// </summary>
-        public void DiscardPairsAtStart()
-        {
-            bool[] markedForDiscard = new bool[_hand.Count];
-            for (int i = 0; i < _hand.Count; i++)
-            {
-                if (!markedForDiscard[i])
-                {
-                    for (int j = 0; j < _hand.Count; j++)
-                    {
-                        if (_hand[i] != _hand[j] && !markedForDiscard[i] && !markedForDiscard[j])
-                        {
-                            if (_hand[i].Rank == _hand[j].Rank)
-                            {
-                                markedForDiscard[i] = true;
-                                markedForDiscard[j] = true;
-                            }
-                        }
-                    }
-                }
-            }
+        //public void DiscardPairsAtStart()
+        //{
+        //    bool[] markedForDiscard = new bool[_hand.Count];
+        //    for (int i = 0; i < _hand.Count; i++)
+        //    {
+        //        if (!markedForDiscard[i])
+        //        {
+        //            for (int j = 0; j < _hand.Count; j++)
+        //            {
+        //                if (_hand[i] != _hand[j] && !markedForDiscard[i] && !markedForDiscard[j])
+        //                {
+        //                    if (_hand[i].Rank == _hand[j].Rank)
+        //                    {
+        //                        markedForDiscard[i] = true;
+        //                        markedForDiscard[j] = true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            for (int k = _hand.Count - 1; k >= 0; k--)
-            {
-                if (markedForDiscard[k] == true)
-                {
-                    _hand.RemoveAt(k);
-                }
-            }
-        }
+        //    for (int k = _hand.Count - 1; k >= 0; k--)
+        //    {
+        //        if (markedForDiscard[k] == true)
+        //        {
+        //            _hand.RemoveAt(k);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Discards all pairs in the player's hand.
@@ -192,34 +193,39 @@ namespace Project_1
         {
             for (int c = 0; c < _handArray.Length; c++)
             {
-                int j = (int)_handArray[c].Rank;
-                if (_tempCards[j] == null)
+                if (_handArray[c] != null)
                 {
-                    _tempCards[j] = _handArray[c];
-                }
-                else
-                {
-                    Deck.ReturnCard(_tempCards[j]);
-                    _tempCards[j] = null;
-                    Deck.ReturnCard(_handArray[c]);
-                    _handArray[c] = null;
+                    int j = (int)_handArray[c].Rank;
+                    if (_tempCards[j] != null)
+                    {
+                        Deck.ReturnCard(_tempCards[j]);
+                        _tempCards[j] = null;
+                        Deck.ReturnCard(_handArray[c]);
+                        _handArray[c] = null;
+                    }
+                    else
+                    {
+                        _tempCards[j] = _handArray[c];
+                        _handArray[c] = null;
+
+                    }
                 }
             }
 
-            int count = 0;
-            for (int i = 0; i < _tempCards.Length; i++)
-            {
-                if (_tempCards[i] != null)
-                {
-                    count++;
-                }
-            }
+            //int count = 0;
+            //for (int i = 0; i < _tempCards.Length; i++)
+            //{
+            //    if (_tempCards[i] != null)
+            //    {
+            //        count++;
+            //    }
+            //}
 
-            _handArray = new Card[count];
+            //_handArray = new Card[count];
 
             // Better way to do this so I don't have to use two for loops?
             // Could possibly double efficiency.
-            count = 0;
+            int count = 0;
             for (int i = 0; i < _tempCards.Length; i++)
             {
                 if (_tempCards[i] != null)
@@ -228,6 +234,8 @@ namespace Project_1
                     _tempCards[i] = null;
                 }
             }
+
+            _topIndex = count - 1;
         }
 
         /// <summary>
@@ -237,27 +245,27 @@ namespace Project_1
         /// </summary>
         /// <param name="c">The card to add/match.</param>
         /// <returns>Returns true if their hand is empty. Returns false otherwise.</returns>
-        public bool AddCard(Card c)
-        {
-            bool containedCard = false;
-            for (int i = _hand.Count - 1; i >= 0; i--)
-            {
-                if (c.Rank == _hand[i].Rank)
-                {
-                    _hand.RemoveAt(i);
-                    containedCard = true;
-                    if (_hand.Count <= 0)
-                    {
-                        return true;
-                    }
-                }
-            }
-            if (!containedCard)
-            {
-                _hand.Add(c);
-            }
-            return false;
-        }
+        //public bool AddCard(Card c)
+        //{
+        //    bool containedCard = false;
+        //    for (int i = _hand.Count - 1; i >= 0; i--)
+        //    {
+        //        if (c.Rank == _hand[i].Rank)
+        //        {
+        //            _hand.RemoveAt(i);
+        //            containedCard = true;
+        //            if (_hand.Count <= 0)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    if (!containedCard)
+        //    {
+        //        _hand.Add(c);
+        //    }
+        //    return false;
+        //}
 
         /// <summary>
         /// Checks for duplicates before adding the given card into the player's hand.
@@ -266,15 +274,23 @@ namespace Project_1
         public void NewAddCard(Card card)
         {
             bool isDuplicate = false;
-            for (int i = _handArray.Length - 1; i >= 0; i--)
+            for (int i = 0; i <= _topIndex; i++)
             {
                 if (_handArray[i].Rank == card.Rank)
                 {
-                    Card iCard = _handArray[i];
-                    _handArray[i] = _handArray[_topIndex--];
-                    //Add cards back into Deck? How?
-                    Deck.ReturnCard(iCard);
-                    Deck.ReturnCard(card);
+                    if (_topIndex == i)
+                    {
+                        Deck.ReturnCard(_handArray[_topIndex]);
+                        _handArray[_topIndex] = null;
+                        _topIndex--;
+                    }
+                    else
+                    {
+                        Deck.ReturnCard(_handArray[i]);
+                        _handArray[i] = _handArray[_topIndex];
+                        _handArray[_topIndex] = null;
+                        _topIndex--;
+                    }
                     isDuplicate = true;
                     break;
                 }
@@ -292,30 +308,30 @@ namespace Project_1
         /// <returns>Returns the Card object at the index specified.</returns>
         public Card PickCardAt(int i)
         {
-            if (i > 0 && i <= _topIndex)
+            if (i >= 0 && i <= _topIndex)
             {
                 Card toReturn = _handArray[i];
-                _handArray[i] = _handArray[_topIndex--];
+                _handArray[i] = _handArray[_topIndex];
+                _handArray[_topIndex--] = null;
                 return toReturn;
             }
             else
             {
                 throw new IndexOutOfRangeException("index is not within the range of the hand");
             }
-
         }
 
         /// <summary>
-        /// Removes a card at the given index.
+        /// OLD Removes a card at the given index.
         /// </summary>
         /// <param name="index">The index of the card to remove.</param>
         /// <returns>A Card value of the card removed.</returns>
-        public Card Remove(int index)
-        {
-            Card toReturn = _hand[index];
-            _hand.RemoveAt(index);
-            return toReturn;
-        }
+        //public Card Remove(int index)
+        //{
+        //    Card toReturn = _hand[index];
+        //    _hand.RemoveAt(index);
+        //    return toReturn;
+        //}
 
         /// <summary>
         /// Returns player's hands back to the deck array.
@@ -343,15 +359,15 @@ namespace Project_1
         public HumanPlayer(string name, int numPlayers)
         {
             IsUser = true;
-            Hand = new Card[(53 / numPlayers + 2)];
-            _topIndex = Hand.Length - 1;
+            Hand = new Card[((53 / numPlayers) + 2)];
+            _topIndex = -1;
             Name = name;
         }
 
         public override void Deal(Card card)
         {
             card.FaceUp = true;
-            _hand[++_topIndex] = card;
+            Hand[++_topIndex] = card;
 
         }
     }
@@ -364,8 +380,8 @@ namespace Project_1
         public ComputerPlayer(string name, int numPlayers)
         {
             IsUser = false;
-            Hand = new Card[(53 / numPlayers + 2)];
-            _topIndex = Hand.Length - 1;
+            Hand = new Card[((53 / numPlayers) + 2)];
+            _topIndex = 0;
             Name = name;
         }
 
@@ -376,7 +392,7 @@ namespace Project_1
 #else
             card.FaceUp = false;
 #endif
-            _hand[++_topIndex] = card;
+            Hand[++_topIndex] = card;
         }
     }
 }

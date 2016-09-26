@@ -66,15 +66,15 @@ namespace Project_1
         /// Deals a card.
         /// </summary>
         /// <returns>A Card object of the next card in the deck.</returns>
-        public Card DealCard()
-        {
-            if (_cardsUsed == _deck.Length)
-            {
-                throw new IndexOutOfRangeException("No cards are left in the deck.");
-            }
-            _cardsUsed++;
-            return _deck[_cardsUsed - 1];
-        }
+        //public Card DealCard()
+        //{
+        //    if (_cardsUsed == _deck.Length)
+        //    {
+        //        throw new IndexOutOfRangeException("No cards are left in the deck.");
+        //    }
+        //    _cardsUsed++;
+        //    return _deck[_cardsUsed - 1];
+        //}
 
         /// <summary>
         /// Draws a card from the deck.
@@ -104,7 +104,7 @@ namespace Project_1
         {
             if (_deckIndex - 1 != _deck.Length)
             {
-                _deck[_deckIndex++] = card;
+                _deck[++_deckIndex] = card;
             }
             else
             {

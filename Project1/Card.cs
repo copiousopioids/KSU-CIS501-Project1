@@ -12,14 +12,14 @@ namespace Project_1
         /// Constant int values enumerating the non-numeric cards.
         /// </summary>
         public const int ACE = 1, JACK = 11, QUEEN = 12, KING = 13;
-        static readonly string[] convertValToString = { "O", "A", "2", "3", "4", "5", "6", "7", "8",
+        static readonly string[] convertValToString = { "M", "A", "2", "3", "4", "5", "6", "7", "8",
                                                         "9", "0", "J", "Q", "K" };
 
         /// <summary>
         /// Enumerating the suits.
         /// </summary>
         public enum Suit { Spades, Hearts, Diamonds, Clubs, OldMaid };
-        static readonly string[] convertSuitToString = { "S", "H", "D", "C", "M" };
+        static readonly string[] convertSuitToString = { "S", "H", "D", "C", "O" };
 
         /// <summary>
         /// This card's suit.
