@@ -281,12 +281,14 @@ namespace Project_1
                     if (_topIndex == i)
                     {
                         Deck.ReturnCard(_handArray[_topIndex]);
+                        Deck.ReturnCard(card);
                         _handArray[_topIndex] = null;
                         _topIndex--;
                     }
                     else
                     {
                         Deck.ReturnCard(_handArray[i]);
+                        Deck.ReturnCard(card);
                         _handArray[i] = _handArray[_topIndex];
                         _handArray[_topIndex] = null;
                         _topIndex--;
