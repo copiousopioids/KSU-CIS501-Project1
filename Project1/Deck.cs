@@ -19,11 +19,6 @@ namespace Project_1
         public static int _deckIndex;
 
         /// <summary>
-        /// A counter to keep track of how many cards have been used.
-        /// </summary>
-        private int _cardsUsed;
-
-        /// <summary>
         /// Constructs the deck.
         /// </summary>
         public Deck()
@@ -40,17 +35,7 @@ namespace Project_1
                 }
             }
             _deck[52] = new Card(0, Card.Suit.OldMaid);
-            _cardsUsed = 0;
             Randomizer.KnuthShuffle(_deck, 0, _deck.Length - 1);
-        }
-
-        /// <summary>
-        /// Calculates the number of cards left on the deck.
-        /// </summary>
-        /// <returns>An int giving the number of cards left.</returns>
-        public int CardsLeft()
-        {
-            return _deck.Length - _cardsUsed;
         }
 
         /// <summary>

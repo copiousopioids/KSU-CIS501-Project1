@@ -12,17 +12,17 @@ namespace Project_1
         /// <summary>
         /// An array of all players; this allows easy reusing of objects.
         /// </summary>
-        public Player[] _allPlayers;
+        private Player[] _allPlayers;
         
         /// <summary>
         /// An array of Player objects, each with a hand of cards.
         /// </summary>
-        public List<Player> _currentPlayers = new List<Player>();
+        private List<Player> _currentPlayers = new List<Player>();
 
         /// <summary>
         /// The game UI object.
         /// </summary>
-        public ConsoleTerminal _gameUI = new ConsoleTerminal();
+        private ConsoleTerminal _gameUI = new ConsoleTerminal();
 
         /// <summary>
         /// The game deck.
@@ -32,7 +32,7 @@ namespace Project_1
         /// <summary>
         /// The total number of players in the game.
         /// </summary>
-        public int _numPlayers;
+        private int _numPlayers;
 
         /// <summary>
         /// Constructs a new game and populates the player list.
@@ -48,7 +48,7 @@ namespace Project_1
         /// <summary>
         /// Populates the player list with Player objects, each with a hand of cards.
         /// </summary>
-        public void PopulatePlayerList(int playerCount)
+        private void PopulatePlayerList(int playerCount)
         {
             _allPlayers = new Player[playerCount];
 
@@ -111,7 +111,7 @@ namespace Project_1
         /// Determines if the player would like to play again.
         /// </summary>
         /// <returns>A bool indicating whether the user would like to play again.</returns>
-        public bool PlayAgain()
+        private bool PlayAgain()
         {
             char answer = _gameUI.GetChar("Do you want to play again? (Y/N)", "YNyn");
             if (answer == 'Y' || answer == 'y')
@@ -234,7 +234,7 @@ namespace Project_1
         /// <summary>
         /// Shuffles all player's hands.
         /// </summary>
-        public void ShuffleHands()
+        private void ShuffleHands()
         {
             foreach (Player p in _currentPlayers)
             {
@@ -246,7 +246,7 @@ namespace Project_1
         /// Discards all pairs in all hands. Runs through entire hand.
         /// Meant to be used right after dealing all cards.
         /// </summary>
-        public void DiscardAllPairsAtStart()
+        private void DiscardAllPairsAtStart()
         {
             foreach (Player p in _currentPlayers)
             {
@@ -258,7 +258,7 @@ namespace Project_1
         /// Displays all the player's hands.
         /// </summary>
         /// <param name="game"></param>
-        public void DisplayHands(OldMaid game)
+        private void DisplayHands(OldMaid game)
         {
             foreach (Player p in _currentPlayers)
             {

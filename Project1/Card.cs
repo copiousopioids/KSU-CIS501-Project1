@@ -152,7 +152,7 @@ namespace Project_1
         /// Gets the suit as a string value.
         /// </summary>
         /// <returns>Returns the initials of the card's string.</returns>
-        public string SuitToString()
+        private string SuitToString()
         {
             return convertSuitToString[(int)CardSuit];
         }
@@ -161,7 +161,7 @@ namespace Project_1
         /// Returns the value as a string.
         /// </summary>
         /// <returns>Returns the numerical value of the card</returns>
-        public string ValueToString()
+        private string ValueToString()
         {
             return convertValToString[Rank];
         }

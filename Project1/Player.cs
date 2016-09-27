@@ -22,12 +22,7 @@ namespace Project_1
         /// <summary>
         /// A static temporary array of 
         /// </summary>
-        public static Card[] _tempCards = new Card[14];
-
-        /// <summary>
-        /// Determines whether the given player has used all their cards.
-        /// </summary>
-        public bool _isFinished = false;
+        private static Card[] _tempCards = new Card[14];
 
         /// <summary>
         /// Determines whether the player is the user.
