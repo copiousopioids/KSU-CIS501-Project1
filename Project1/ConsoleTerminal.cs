@@ -47,45 +47,6 @@ namespace Project_1
             Console.WriteLine(s);
         }
 
-        /// <summary>
-        /// Gets the number of AI players.
-        /// </summary>
-        /// <returns>An int giving the total number of AI players.</returns>
-        //public int GetNumAI()
-        //{
-        //    bool isValid = false;
-        //    while (!isValid)
-        //    {
-        //        try {
-        //            Console.Write("Input number of computer players (2 - 5): ");
-        //            int num = Convert.ToInt32(Console.ReadLine());
-        //            if (num < 2 || num > 5)
-        //            {
-        //                Console.Write("Invalid input.");
-        //                isValid = false;
-        //            }
-        //            else
-        //            {
-        //                isValid = true;
-        //                return num;
-        //            }
-        //        }
-        //        catch(FormatException e)
-        //        {
-        //            Console.WriteLine("Invalid Input.");
-        //            isValid = false;
-        //        }
-        //    }
-
-        //    return 2;
-        //}
-
-        /// <summary>
-        /// Gets a char answer from the user.
-        /// </summary>
-        /// <param name="prompt">The string prompt to display to the user.</param>
-        /// <param name="chars">a string of the chars that give a valid answer.</param>
-        /// <returns></returns>
         public char GetChar(string prompt, string chars)
         {
             bool valid = false;

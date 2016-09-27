@@ -113,26 +113,14 @@ namespace Project_1
         /// <returns>A bool indicating whether the user would like to play again.</returns>
         public bool PlayAgain()
         {
-            bool valid = false;
-            while (!valid)
+            char answer = _gameUI.GetChar("Do you want to play again? (Y/N)", "YNyn");
+            if (answer == 'Y' || answer == 'y')
             {
-                Console.Write("Do you want to play again? (Y/N)");
-                char answer = _gameUI.GetChar("Do you want to play again? (Y/N)", "YNyn");
-                if (answer == 'Y')
-                {
-                    valid = true;
-                    return true;
-                }
-                else if (answer == 'N')
-                {
-                    valid = true;
-                    return false;
-                }
-                else
-                {
-                    valid = false;
-                    Console.WriteLine("Invalid Response.");
-                }
+                return true;
+            }
+            else if (answer == 'N' || answer == 'n')
+            {
+                return false;
             }
             return false;
         }
@@ -209,8 +197,6 @@ namespace Project_1
                                     _gameUI.DisplayLine(_currentPlayers[drawer].Name + " is finished.");
                                 }
                             }
-                            // Fix this bit.
-                            //else throw new Exception("Drawer does not have any cards in their hand.");
 
                             _gameUI.GetString("Press <Enter> to Continue...", 0);
                         }
@@ -224,43 +210,6 @@ namespace Project_1
                             _currentPlayers.RemoveAt(i);
                         }
                     }
-                    
-                    //for (int i = 0; i < _currentPlayers.Count - 1; i++)
-                    //{
-                    //    if (!_currentPlayers[i]._isFinished)
-                    //    {
-                    //        if (_currentPlayers[i].IsUser)
-                    //        {
-                    //            int pick = GetUserPick(_currentPlayers[1]);
-                    //            PickUp(_currentPlayers[0], _currentPlayers[1], pick);
-                    //            //_gameUI.DisplayLine("Press <Enter> to Continue...");
-                    //            //Console.Read();
-                    //        }
-                    //        else
-                    //        {
-                    //            // Doesn't work, need to fix the indexing so it skips over any finished players.
-                    //            PickUp(_currentPlayers[i], _currentPlayers[i + 1], rnd.Next(0, _currentPlayers[i + 1]._hand.Count - 1));
-
-                    //        }
-                    //        //_gameUI.DisplayLine("Press <Enter> to Continue...");
-                    //        //Console.Read();
-                    //    }
-                    //}
-
-                    //if (!_currentPlayers.Last()._isFinished && _currentPlayers.First()._hand.Count > 0)
-                    //{
-                    //    PickUp(_currentPlayers.Last(), _currentPlayers.First(), rnd.Next(0, _currentPlayers.First()._hand.Count - 1));
-                    //    //_gameUI.DisplayLine("Press <Enter> to Continue...");
-                    //    //Console.Read();
-                    //}
-
-                    //for (int i = _currentPlayers.Count - 1; i >= 0; i--)
-                    //{
-                    //    if (_currentPlayers[i]._isFinished)
-                    //    {
-                    //        _currentPlayers.RemoveAt(i);
-                    //    }
-                    //}
 
                     _gameUI.DisplayLine("\n==== After the Pick ====");
                     DisplayHands(this);
@@ -315,102 +264,6 @@ namespace Project_1
             {
                 _gameUI.DisplayLine(p.Name + "\t: " + p.HandToString());
             }
-
-            //List<string> handList = new List<string>();
-            //foreach (Player p in game._playerList)
-            //{
-            //    if (p != null && !p._isFinished)
-            //    {
-            //        handList.Add(p.HandToString());
-            //    }
-            //}
-            //Console.WriteLine(game._playerList[0]._name + "    : " + handList[0]);
-            //for (int i = 1; i < handList.Count; i++)
-            //{
-            //    Console.WriteLine(game._playerList[i]._name + " : " + handList[i]);
-            //}
         }
-
-        ///// <summary>
-        ///// pick up the card and give it to the other player.
-        ///// </summary>
-        ///// <param name="taker">The one taking a card.</param>
-        ///// <param name="giver">The one giving the card.</param>
-        ///// <param name="index">The index of the card to take.</param>
-        ///// <returns>Returns true if the User has no cards left.</returns>
-        //private bool PickUp(Player taker, Player giver, int index)
-        //{
-        //    Card pick = giver.Remove(index);
-
-        //    _gameUI.DisplayLine(taker.Name + " picks up " + giver.Name + "'s card at [" + index + "], Card: " + pick.ToString());
-
-        //    bool isFinished = taker.AddCard(pick);
-
-        //    if (giver._hand.Count <= 0)
-        //    {
-        //        _gameUI.DisplayLine(giver.Name + " is finished.");
-        //        giver._isFinished = true;
-        //        _gameUI.DisplayLine("Press <Enter> to Continue...");
-        //        Console.Read();
-        //        return true;
-        //    }
-
-        //    if (isFinished)
-        //    {
-        //        _gameUI.DisplayLine(taker.Name + " is finished.");
-        //        taker._isFinished = true;
-        //        _gameUI.DisplayLine("Press <Enter> to Continue...");
-        //        Console.Read();
-        //        return true;
-        //    }
-        //    _gameUI.DisplayLine("Press <Enter> to Continue...");
-        //    Console.Read();
-        //    return false;
-        //}
-
-        /// <summary>
-        /// Gets the user's pick from the next player.
-        /// </summary>
-        /// <param name="p">The player to pick from.</param>
-        /// <returns>The index value of the card to pick.</returns>
-        //public int GetUserPick(Player p)
-        //{
-        //    _gameUI.DisplayLine("******** Now, User's Turn ********");
-        //    _gameUI.DisplayLine(_currentPlayers[0].Name + "    : " + _currentPlayers[0].HandToString());
-        //    _gameUI.DisplayLine(p.Name + " : " + p.HandToString());
-        //    _gameUI.Display("Index   :"); 
-        //    for (int i = 0; i < p._hand.Count; i++)
-        //    {
-        //        _gameUI.Display("  " + i);
-        //    }
-
-        //    _gameUI.DisplayLine("");
-
-        //    bool isValid = false;
-        //    while (!isValid)
-        //    {
-        //        try {
-        //            _gameUI.Display("Pick One Card from " + p.Name + " : ");
-        //            string input = Console.ReadLine();
-
-        //            if (input != null && Convert.ToInt32(input) >= 0 && Convert.ToInt32(input) < p._hand.Count)
-        //            {
-        //                isValid = true;
-        //                return Convert.ToInt32(input);
-        //            }
-        //            else
-        //            {
-        //                _gameUI.DisplayLine("Input a valid value.");
-        //                isValid = false;
-        //            }
-        //        }
-        //        catch (FormatException e)
-        //        {
-        //            _gameUI.DisplayLine("Invalid Input.");
-        //            isValid = false;
-        //        }
-        //    }
-        //    return 0;
-        //}
     }
 }

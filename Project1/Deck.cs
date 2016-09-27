@@ -41,16 +41,7 @@ namespace Project_1
             }
             _deck[52] = new Card(0, Card.Suit.OldMaid);
             _cardsUsed = 0;
-            Shuffle();
-        }
-
-        /// <summary>
-        /// Shuffles the deck.
-        /// </summary>
-        public void Shuffle()
-        {
-            new Random().Shuffle(_deck);
-            _cardsUsed = 0;
+            Randomizer.KnuthShuffle(_deck, 0, _deck.Length - 1);
         }
 
         /// <summary>
@@ -61,20 +52,6 @@ namespace Project_1
         {
             return _deck.Length - _cardsUsed;
         }
-
-        /// <summary>
-        /// Deals a card.
-        /// </summary>
-        /// <returns>A Card object of the next card in the deck.</returns>
-        //public Card DealCard()
-        //{
-        //    if (_cardsUsed == _deck.Length)
-        //    {
-        //        throw new IndexOutOfRangeException("No cards are left in the deck.");
-        //    }
-        //    _cardsUsed++;
-        //    return _deck[_cardsUsed - 1];
-        //}
 
         /// <summary>
         /// Draws a card from the deck.

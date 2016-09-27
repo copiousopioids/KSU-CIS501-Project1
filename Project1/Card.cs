@@ -155,19 +155,6 @@ namespace Project_1
         public string SuitToString()
         {
             return convertSuitToString[(int)CardSuit];
-            //switch (_suit)
-            //{
-            //    case Suit.Spades:
-            //        return "S";
-            //    case Suit.Hearts:
-            //        return "H";
-            //    case Suit.Diamonds:
-            //        return "D";
-            //    case Suit.Clubs:
-            //        return "C";
-            //    default:
-            //        return "OM";
-            //}
         }
 
         /// <summary>
@@ -177,43 +164,6 @@ namespace Project_1
         public string ValueToString()
         {
             return convertValToString[Rank];
-
-            //if (_suit == Suit.OldMaid)
-            //{
-            //    return "";
-            //}
-            //else
-            //{
-            //    switch (_value)
-            //    {
-            //        case 1:
-            //            return "A";
-            //        case 2:
-            //            return "2";
-            //        case 3:
-            //            return "3";
-            //        case 4:
-            //            return "4";
-            //        case 5:
-            //            return "5";
-            //        case 6:
-            //            return "6";
-            //        case 7:
-            //            return "7";
-            //        case 8:
-            //            return "8";
-            //        case 9:
-            //            return "9";
-            //        case 10:
-            //            return "0";
-            //        case 11:
-            //            return "J";
-            //        case 12:
-            //            return "Q";
-            //        default:
-            //            return "K";
-            //    }
-            //}
         }
 
         /// <summary>

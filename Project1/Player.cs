@@ -15,13 +15,7 @@ namespace Project_1
         private string _name = "";
 
         /// <summary>
-        /// An array of Card objects forming the Player's hand.
-        /// </summary>
-        //public List<Card> _hand;
-
-        /// <summary>
-        /// Change _handArray to _hand
-        /// Change NewAddCard to AddCard
+        /// Array of card objects.
         /// </summary>
         private Card[] _handArray;
 
@@ -100,28 +94,6 @@ namespace Project_1
         
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="numPlayers"></param>
-        //public Player(int numPlayers)
-        //{
-        //    _handArray = new Card[(53 / numPlayers + 2)];
-        //    _topIndex = _handArray.Length - 1;
-        //}
-
-        /// <summary>
-        /// Constructs a new player with a name.
-        /// </summary>
-        /// <param name="name">The name of the player.</param>
-        /// <param name="isUser">Determines if this player is the user.</param>
-        //public Player(string name, bool isUser)
-        //{
-        //    _name = name;
-        //    _hand = new List<Card>();
-        //    _isUser = isUser;
-        //}
-
         /// <summary>
         /// Converts the Card object list into a string list, and joins that into one string for output.
         /// </summary>
@@ -137,12 +109,6 @@ namespace Project_1
             string toReturn = sb.ToString();
             sb.Clear();
             return toReturn;
-            //List<string> stringHandList = new List<string>();
-            //for (int i = 0; i < _hand.Count; i++)
-            //{
-            //    stringHandList.Add(_hand[i].ToString());
-            //}
-            //return string.Join(" ", stringHandList.ToArray());
         }
 
         /// <summary>
@@ -152,39 +118,6 @@ namespace Project_1
         {
             Randomizer.KnuthShuffle(_handArray, 0, _topIndex);
         }
-
-        /// <summary>
-        /// OLD Discards all pairs in a player's hand. Designed for use at the beginning of the program.
-        /// </summary>
-        //public void DiscardPairsAtStart()
-        //{
-        //    bool[] markedForDiscard = new bool[_hand.Count];
-        //    for (int i = 0; i < _hand.Count; i++)
-        //    {
-        //        if (!markedForDiscard[i])
-        //        {
-        //            for (int j = 0; j < _hand.Count; j++)
-        //            {
-        //                if (_hand[i] != _hand[j] && !markedForDiscard[i] && !markedForDiscard[j])
-        //                {
-        //                    if (_hand[i].Rank == _hand[j].Rank)
-        //                    {
-        //                        markedForDiscard[i] = true;
-        //                        markedForDiscard[j] = true;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    for (int k = _hand.Count - 1; k >= 0; k--)
-        //    {
-        //        if (markedForDiscard[k] == true)
-        //        {
-        //            _hand.RemoveAt(k);
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Discards all pairs in the player's hand.
@@ -212,19 +145,6 @@ namespace Project_1
                 }
             }
 
-            //int count = 0;
-            //for (int i = 0; i < _tempCards.Length; i++)
-            //{
-            //    if (_tempCards[i] != null)
-            //    {
-            //        count++;
-            //    }
-            //}
-
-            //_handArray = new Card[count];
-
-            // Better way to do this so I don't have to use two for loops?
-            // Could possibly double efficiency.
             int count = 0;
             for (int i = 0; i < _tempCards.Length; i++)
             {
@@ -237,35 +157,6 @@ namespace Project_1
 
             _topIndex = count - 1;
         }
-
-        /// <summary>
-        /// OLD Checks if the given card has a pair in the hand.
-        /// Returns true if their hand is empty.
-        /// Otherwise, returns false.
-        /// </summary>
-        /// <param name="c">The card to add/match.</param>
-        /// <returns>Returns true if their hand is empty. Returns false otherwise.</returns>
-        //public bool AddCard(Card c)
-        //{
-        //    bool containedCard = false;
-        //    for (int i = _hand.Count - 1; i >= 0; i--)
-        //    {
-        //        if (c.Rank == _hand[i].Rank)
-        //        {
-        //            _hand.RemoveAt(i);
-        //            containedCard = true;
-        //            if (_hand.Count <= 0)
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    }
-        //    if (!containedCard)
-        //    {
-        //        _hand.Add(c);
-        //    }
-        //    return false;
-        //}
 
         /// <summary>
         /// Checks for duplicates before adding the given card into the player's hand.
@@ -322,18 +213,6 @@ namespace Project_1
                 throw new IndexOutOfRangeException("index is not within the range of the hand");
             }
         }
-
-        /// <summary>
-        /// OLD Removes a card at the given index.
-        /// </summary>
-        /// <param name="index">The index of the card to remove.</param>
-        /// <returns>A Card value of the card removed.</returns>
-        //public Card Remove(int index)
-        //{
-        //    Card toReturn = _hand[index];
-        //    _hand.RemoveAt(index);
-        //    return toReturn;
-        //}
 
         /// <summary>
         /// Returns player's hands back to the deck array.

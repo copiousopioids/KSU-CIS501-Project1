@@ -3,10 +3,6 @@
 /// Project 1 - Old Maid
 /// 
 /// Uses Knuth's Shuffle Algorithm <http://rosettacode.org/wiki/Knuth_shuffle>
-///  Questions
-///  - How to reuse Player objects? How to make sure arrays for hand a long enough?
-///  
-/// When playing again, do not reset number of players
 /// GetString("message", 0) to wait for user
 using System;
 using System.Collections.Generic;
