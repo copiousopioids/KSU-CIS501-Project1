@@ -22,7 +22,7 @@ namespace Project_1
         /// <summary>
         /// The game UI object.
         /// </summary>
-        private ConsoleTerminal _gameUI = new ConsoleTerminal();
+        private ITerminal _gameUI = new ConsoleTerminal();
 
         /// <summary>
         /// The game deck.
@@ -153,9 +153,10 @@ namespace Project_1
                         if (_currentPlayers[drawer] != null)
                         {
                             int drawee = (drawer + 1) % _currentPlayers.Count;
-                            int pick = rnd.Next(0, _currentPlayers[drawee]._topIndex + 1);
+                            int pick;
 
-                            if (_currentPlayers[drawer].IsUser)
+                            //if (_currentPlayers[drawer].IsUser)
+                            if (_currentPlayers[drawer] is HumanPlayer)
                             {
                                 _gameUI.DisplayLine("\n******** Now, User's Turn ********");
                                 _gameUI.DisplayLine(_currentPlayers[drawer].Name + "\t : " + _currentPlayers[drawer].HandToString());
@@ -168,6 +169,10 @@ namespace Project_1
 
                                 string prompt = "\nPick one card from " + _currentPlayers[drawee].Name + " : ";
                                 pick = _gameUI.GetInt(prompt, 0, _currentPlayers[drawee]._topIndex);
+                            }
+                            else
+                            {
+                                pick = rnd.Next(0, _currentPlayers[drawee]._topIndex + 1);
                             }
 
 
@@ -185,7 +190,7 @@ namespace Project_1
                                 }
 
                                 _gameUI.DisplayLine("\n" + _currentPlayers[drawer].Name + " picks up " + _currentPlayers[drawee].Name + "'s card at [" + pick + "], Card: " + _currentPlayers[drawee].Hand[pick].ToString());
-                                _currentPlayers[drawer].NewAddCard(_currentPlayers[drawee].PickCardAt(pick));
+                                _currentPlayers[drawer].AddCard(_currentPlayers[drawee].PickCardAt(pick));
 
                                 if (_currentPlayers[drawee]._topIndex < 0)
                                 {

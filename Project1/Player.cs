@@ -25,11 +25,6 @@ namespace Project_1
         private static Card[] _tempCards = new Card[14];
 
         /// <summary>
-        /// Determines whether the player is the user.
-        /// </summary>
-        private bool _isUser;
-
-        /// <summary>
         /// The index of the top card in the array.
         /// </summary>
         public int _topIndex;
@@ -62,21 +57,6 @@ namespace Project_1
             set
             {
                 _name = value;
-            }
-        }
-
-        /// <summary>
-        /// Public property for _isUser.
-        /// </summary>
-        public bool IsUser
-        {
-            get
-            {
-                return _isUser;
-            }
-            set
-            {
-                _isUser = value;
             }
         }
 
@@ -157,7 +137,7 @@ namespace Project_1
         /// Checks for duplicates before adding the given card into the player's hand.
         /// </summary>
         /// <param name="card">the card to add.</param>
-        public void NewAddCard(Card card)
+        public void AddCard(Card card)
         {
             bool isDuplicate = false;
             for (int i = 0; i <= _topIndex; i++)
@@ -234,7 +214,6 @@ namespace Project_1
     {
         public HumanPlayer(string name, int numPlayers)
         {
-            IsUser = true;
             Hand = new Card[((53 / numPlayers) + 2)];
             _topIndex = -1;
             Name = name;
@@ -255,9 +234,8 @@ namespace Project_1
     {
         public ComputerPlayer(string name, int numPlayers)
         {
-            IsUser = false;
             Hand = new Card[((53 / numPlayers) + 2)];
-            _topIndex = 0;
+            _topIndex = -1;
             Name = name;
         }
 
